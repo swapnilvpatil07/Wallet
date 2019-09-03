@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package com.fidel.webwallet.controller;
 
 import java.io.OutputStream;
@@ -12,6 +10,7 @@ import java.util.SortedSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -300,8 +299,12 @@ public class WebController {
 		payLoad.setOrderId(ordId.toString());
 		payLoad.setChannelId(Constants.CH_WEB);
 		payLoad.setReqType(Constants.ADD_MONEY);
-		payLoad.setCallBckUrl("http://" + serverAddress + ":" + serverPort + "/wallet/txnStatus");
-		payLoad.setServerUrl("http://" + payServerAddress + ":" + payServerPort + "/api/v1/net-pay");
+		// payLoad.setCallBckUrl("http://" + serverAddress + ":" + serverPort +
+		// "/wallet/txnStatus");
+		payLoad.setCallBckUrl("https://" + serverAddress + ":" + serverPort + "/wallet/txnStatus");
+
+		// payLoad.setServerUrl("https://" + payServerAddress + ":" + payServerPort +
+		// "/api/v1/net-pay");
 
 		model.addAttribute("payload", payLoad);
 
@@ -313,6 +316,15 @@ public class WebController {
 	@PostMapping(path = "/processTransaction")
 	public String processTransaction(@RequestParam(name = "ordId") String orderId, PayLoad load, Model model,
 			HttpServletResponse response) throws Exception {
+
+		load.setOrderId(orderId);
+		// load.setCallBckUrl("http://" + serverAddress + ":" + serverPort +
+		// "/wallet/txnStatus");
+		// load.setServerUrl("http://" + serverAddress + ":" + serverPort +
+		// "/wallet/payRequest");
+
+		load.setCallBckUrl("https://" + serverAddress + ":" + serverPort + "/wallet/txnStatus");
+		load.setServerUrl("https://" + serverAddress + ":" + serverPort + "/wallet/payRequest");
 		model.addAttribute("payload", load);
 
 		// view to render
@@ -320,9 +332,26 @@ public class WebController {
 	}
 
 	@PreAuthorize("hasRole('ROLE_USER')")
+	@PostMapping(path = "/payRequest")
+	public String payRequest(@RequestParam(name = "bnk", required = false) String bnk,
+			@RequestParam(name = "othr-bnk", required = false) String othrBnk, PayLoad payLoad, Model model,
+			HttpServletResponse response) throws Exception {
+
+		model.addAttribute("bnk", bnk);
+		// payLoad.setServerUrl("http://" + payServerAddress + ":" + payServerPort +
+		// "/api/v1/net-pay");
+		payLoad.setServerUrl("https://" + payServerAddress + ":" + payServerPort + "/api/v1/net-pay");
+		model.addAttribute("payload", payLoad);
+
+		// view to render
+		return "pay-request";
+	}
+
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@PostMapping(path = "/txnStatus")
 	public String txnHandler(@RequestParam("status") String status, @RequestParam("message") String message,
-			PayLoad load, Model model) throws Exception {
+			PayLoad load, Model model, HttpServletRequest request) throws Exception {
+
 		OrderDetails orderData = null;
 		UserInfo usrInfo = userInfoService.getAuthenticatedUserInfo();
 		OrderDetails ord = orderDetailsService.getOrder(load.getOrderId());

@@ -13,4 +13,6 @@ public interface OneTimePassword {
 
 	boolean verify(String otp);
 
+	String getOtp(int otpTmp);
+
 }

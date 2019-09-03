@@ -48,7 +48,7 @@
 			<div class="card-body p-0">
 				<form action="/wallet/secure/init-txn" method="post" id="init-txn">
 					<ul class="list-group list-group-horizontal add-money-ul">
-						<li class="list-group-item  border-0 border-left-0 li-cust-1">
+						<li class="list-group-item border-0 border-left-0 li-cust-1">
 
 							<div class="left-sec">
 								<i class="fas fa-wallet addmoney-fa-wallet"></i>

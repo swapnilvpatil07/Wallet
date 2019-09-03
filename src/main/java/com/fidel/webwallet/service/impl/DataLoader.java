@@ -5,7 +5,6 @@ package com.fidel.webwallet.service.impl;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -36,22 +35,18 @@ public class DataLoader {
 
 	private Faker faker;
 
-	/**
-	 * 
-	 */
 	public DataLoader() {
-		faker = new Faker(Locale.getDefault());
+		super();
 	}
 
 	@PostConstruct
-	private void loadData() {
+	void loadData() {
+		init();
+		removeCustomerData();
 
 		UserInfo info;
 		Password password;
 		Role role;
-
-		// roleRepositiory.save(new Role("USER"));
-		// roleRepositiory.save(new Role("ADMIN"));
 
 		for (int i = 1; i < 10; i++) {
 			info = new UserInfo();
@@ -60,12 +55,19 @@ public class DataLoader {
 
 			info.setAddress(faker.streetAddress(true));
 			info.setCntVerified(Constants.NON_VERIFIED);
-			info.setContactNo("869848430" + i);
 			info.setDob(faker.bothify("0#/0#/199#"));
-			info.setEmailId("user" + i + "@gmail.com");
 			info.setEmailVerified(Constants.NON_VERIFIED);
-			info.setfName(faker.firstName());
-			info.setlName(faker.lastName());
+			if (i == 1) {
+				info.setfName("Prachi");
+				info.setlName("Kulkarni");
+				info.setContactNo("7709966240");
+				info.setEmailId(info.getfName() + "." + info.getlName() + "@fideltech.com");
+			} else {
+				info.setfName(faker.firstName());
+				info.setlName(faker.lastName());
+				info.setContactNo("869848430" + i);
+				info.setEmailId("user" + i + "@fideltech.com");
+			}
 
 			password.setPassword("12345");
 
@@ -80,8 +82,12 @@ public class DataLoader {
 
 	}
 
+	private void init() {
+		faker = new Faker();
+	}
+
 	@PreDestroy
-	private void removeCustomerData() {
+	void removeCustomerData() {
 		infoRepository.deleteAll();
 		roleRepositiory.deleteAll();
 	}

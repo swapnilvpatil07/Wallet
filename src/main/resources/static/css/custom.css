@@ -55,6 +55,7 @@ body {
 
 .add-money-crd {
 	padding: 5px;
+	height: auto;
 }
 
 #amount {
@@ -147,6 +148,95 @@ article.card-body.mx-auto {
 	}
 	.navbar-expand-sm .navbar-nav .nav-link>.fa>.badge {
 		top: -6px;
+	}
+}
+
+@media screen and (max-width: 576px) {
+	.pay-body {
+		font-size: 13px;
+	}
+	.add-money-ul .li-cust-1 {
+		border-right: thin solid gray;
+		width: 70% !important;
+		display: flex;
+		padding: 5px;
+	}
+	.add-money-ul .li-cust-2 {
+		padding: 5px;
+		padding-top: 15px;
+		padding-bottom: 0px;
+	}
+	.add-money-ul .li-cust-3 {
+		padding: 5px;
+		padding-top: 15px;
+		padding-bottom: 0px;
+		width: 50% !important;
+	}
+	.right-sec .span-msg {
+		font-size: 9px;
+	}
+	.right-sec .span-rs {
+		font-size: 20px;
+		font-weight: 500;
+		padding-top: 5px !important;
+	}
+	.addmoney-fa-wallet {
+		font-size: 45px;
+	}
+	#add-money-btn, #amount {
+		font-size: 13px !important;
+	}
+	.nav-brand-nm {
+		font-size: 20px !important;
+	}
+	.payment-crd, .add-money-crd {
+		margin: 0px 0px 5px 0px !important;
+	}
+	.add-money-crd {
+		height: auto !important;
+	}
+	.pay-details-left {
+		width: 60% !important;
+	}
+	.text-primary {
+		font-size: 20px !important;
+	}
+	.card-body {
+		height: auto;
+	}
+	.card-net-bnk {
+		font-size: 12px !important;
+	}
+	.card-header-title {
+		font-size: 15px;
+	}
+	.nav-tab-cust {
+		border-right: none !important;
+	}
+	.cust-col-md {
+		padding-left: 15px !important;
+	}
+	#other-bnk {
+		font-size: 12px;
+		margin-bottom: 10px !important;
+	}
+	.cust-pay-btn {
+		font-size: 12px !important;
+	}
+	.add-money-crd {
+		margin-top: 10px !important;
+	}
+	.pl-0 {
+		padding-left: 15px !important;
+	}
+	.pl-0>button {
+		margin-top: 10px;
+	}
+	[name=otp] {
+		margin-top: 10px;
+	}
+	[name=verify-otp-btn] {
+		width: 100%;
 	}
 }
 

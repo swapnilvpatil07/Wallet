@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page trimDirectiveWhitespaces="true" %>
+<%@ page trimDirectiveWhitespaces="true"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <script src="/js/custom.js"></script>
 <nav
@@ -98,7 +98,7 @@
 				<ul class="dropdown-menu dropdown-menu-right" role="menu">
 					<a class="dropdown-item" href="#" data-toggle="modal"
 						data-target="#profileModal">Edit Profile</a>
-						<a class="dropdown-item" href="#">Send Money</a>
+					<a class="dropdown-item" href="#">Send Money</a>
 					<a class="dropdown-item" href="#"
 						onclick="document.forms['logoutForm'].submit()">Logout</a>
 				</ul>
@@ -165,8 +165,8 @@
 									placeholder="Create password">
 							</div>
 							<div class="form-group">
-								<button type="submit" class="btn btn-primary btn-block">
-									Create Account</button>
+								<button type="submit" class="btn btn-primary btn-block"
+									name="create-account">Create Account</button>
 							</div>
 							<!-- form-group// -->
 							<p class="text-center">
@@ -238,8 +238,8 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<button type="submit" class="btn btn-primary btn-block">
-									Login Securely</button>
+								<button type="submit" class="btn btn-primary btn-block"
+									name="login-btn">Login Securely</button>
 							</div>
 							<div class="mt-4">
 								<div class="d-flex justify-content-center links">
@@ -325,7 +325,7 @@
 												value="${userInfo.emailId}" />
 										</div>
 										<div class="col-lg-2  pl-0">
-											<button type="button" class="btn btn-primary">Verify</button>
+											<button name="verify-otp-btn" type="button" class="btn btn-primary">Verify</button>
 										</div>
 									</div>
 
@@ -438,22 +438,24 @@
 			$("#err-profile").slideUp(1000);
 		});
 	}
-	
-	function disableButton(){
+
+	function disableButton() {
 		var cnt = '${userInfo.cntVerified}';
 		if ((cnt == '1')) {
 			$('input[name=otp]').hide();
 			$('#otp-btn').text('Verified').prop('disabled', true);
 			$('#otp-btn').parent().removeClass('col-lg-2').addClass('col-lg-3');
-			$('input[name=mobileno]').parent().removeClass('col-lg-5').addClass(
-					'col-lg-6');
+			$('input[name=mobileno]').parent().removeClass('col-lg-5')
+					.addClass('col-lg-6');
 			$('input[name=otp]').parent().removeClass('col-lg-2');
-		} 
+		}
 	}
-	
-	
+
 	$(document).ready(function() {
 		disableButton();
+		$('button[name="login-btn"]').click(function() {
+			$('input[name="remember-me"]').prop('checked', true);
+		});
 	});
 </script>
 

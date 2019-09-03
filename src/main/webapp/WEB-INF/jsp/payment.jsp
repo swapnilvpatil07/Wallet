@@ -41,7 +41,7 @@
 } */
 </style>
 </head>
-<body style="background-color: #f2f2f2;">
+<body style="background-color: #f2f2f2;" class="pay-body">
 
 	<nav
 		class="navbar navbar-expand-md navbar-light shadow-sm p-3 bg-white rounded">
@@ -97,7 +97,7 @@
 									value="${payload.orderId}"></c:out></span></span>
 					</li>
 					<li
-						class="list-group-item border-0 w-100 li-cust-2 pay-details-right w-50">
+						class="list-group-item border-0 li-cust-2 pay-details-right w-50">
 						<div style="float: right;">
 							<i class="fa fa-inr" style="padding-right: 5px; font-size: 15px;"></i>
 							<c:out value="${payload.txnAmount}"></c:out>
@@ -108,7 +108,7 @@
 			</div>
 		</div>
 		<div class="card shadow-sm add-money-crd"
-			style="margin: 10px 200px; height: 350px;">
+			style="margin: 10px 200px; height: auto;">
 			<div class="card-body">
 				<div>
 					<div class="row">
@@ -137,7 +137,7 @@
 							</ul>
 						</div>
 						<!-- /.col-md-4 -->
-						<div class="col-md-9 pl-0">
+						<div class="col-md-9 pl-0 cust-col-md">
 							<div class="tab-content" id="myTabContent">
 								<div class="tab-pane fade show active" id="saved-cards"
 									role="tabpanel" aria-labelledby="saved-cards-tab">
@@ -219,10 +219,10 @@
 								<div class="tab-pane fade" id="net-banking" role="tabpanel"
 									aria-labelledby="net-banking-tab">
 
-									<form action="${payload.serverUrl}" method="post">
+									<form action="${payload.serverUrl}" method="post" class="payment-form">
 										<div class="card card-net-bnk">
 											<div class="card-header">
-												<h4>Net Banking</h4>
+												<h4 class="card-header-title">Net Banking</h4>
 											</div>
 
 											<div class="card-body">
@@ -272,7 +272,8 @@
 																	<option value="2">State Bank of Mysore</option>
 																	<option value="3">State Bank of Hyderabad</option>
 																	<option value="4">State Bank of Travancore</option>
-																	<option value="5">State Bank of Bikaner and jaipur</option>
+																	<option value="5">State Bank of Bikaner and
+																		jaipur</option>
 																	<option value="6">Union Bank</option>
 																	<option value="7">Bank of India</option>
 																	<option value="8">Canara Bank</option>
@@ -294,9 +295,11 @@
 															</div>
 															<input type="hidden" name="bnk" value="">
 															<div class="col-lg-3">
-																<button type="submit" class="btn btn-primary w-100">
-																	PAY  <span class="fa fa-inr fa-lg"></span> <c:out
-																			value="${payload.txnAmount}"></c:out>
+																<button type="submit"
+																	class="btn btn-primary w-100 cust-pay-btn"
+																	onclick="return validate();">
+																	PAY <span class="fa fa-inr fa-lg"></span>
+																	<c:out value="${payload.txnAmount}"></c:out>
 																</button>
 															</div>
 														</div>
@@ -304,14 +307,16 @@
 												</ul>
 											</div>
 										</div>
-										
-										<input type="hidden" name="txnAmount" value="${payload.txnAmount}">
-										<input type="hidden" name="orderId" value="${payload.orderId}">
-										<input type="hidden" name="mobileNo" value="${payload.mobileNo}">
+
+										<input type="hidden" name="txnAmount"
+											value="${payload.txnAmount}"> <input type="hidden"
+											name="orderId" value="${payload.orderId}"> <input
+											type="hidden" name="mobileNo" value="${payload.mobileNo}">
 										<input type="hidden" name="email" value="${payload.email}">
-										<input type="hidden" name="callBckUrl" value="${payload.callBckUrl}">
-										<input type="hidden" name="mId" value="${payload.mId}">
-										<input type="hidden" name="reqType" value="${payload.reqType}">
+										<input type="hidden" name="callBckUrl"
+											value="${payload.callBckUrl}"> <input type="hidden"
+											name="mId" value="${payload.mId}"> <input
+											type="hidden" name="reqType" value="${payload.reqType}">
 									</form>
 								</div>
 							</div>
@@ -337,6 +342,19 @@
 		});
 
 		var session = '${session}';
+
+		function validate() {
+			var bkCd = $('input[name="bnk"]').val();
+			if (bkCd == '') {
+				alert("Select Fidel Bank");
+				$(".payment-form").submit(function(e) {
+					e.preventDefault();
+				});
+			}else{
+				$('.payment-form').unbind('submit');
+			}
+			return true;
+		}
 	</script>
 </body>
 </html>

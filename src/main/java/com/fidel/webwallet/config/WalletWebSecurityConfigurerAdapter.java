@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package com.fidel.webwallet.config;
 
 import org.springframework.beans.factory.annotation.Autowired;

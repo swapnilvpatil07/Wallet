@@ -47,7 +47,8 @@ public class OneTimePasswordImpl implements OneTimePassword {
 	 * @param i
 	 * @return
 	 */
-	private String getOtp(int otpTmp) {
+	@Override
+	public String getOtp(int otpTmp) {
 		Random random = new Random();
 		otp = otpTmp;
 

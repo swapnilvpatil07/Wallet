@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package com.fidel.webwallet.commons;
 
 /**

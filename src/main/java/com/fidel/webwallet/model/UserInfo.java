@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package com.fidel.webwallet.model;
 
 import java.util.Set;
